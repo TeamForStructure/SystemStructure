@@ -1,0 +1,5 @@
+.idea
+__pycache__
+scoreboard/__pycache__
+scoreboard/migrations
+db.sqlite3
