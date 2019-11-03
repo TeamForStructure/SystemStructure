@@ -335,7 +335,21 @@ class GetInstructionView(GenericAPIView):
             # print(i)
             insTable.addInstruction(i)
         # print(insTable.getList())
-        return Response(insTable.getList())
+        insTable, funcUTable, registerTable = goto_cycle(0, instruction[0:-1])
+        if insTable.getList() is not None:
+            # print('insTable:')
+            # print(insTable.getList())
+            # print('funcUTable:')
+            # print(funcUTable.getList)
+            # print('registerTable:')
+            # print([registerTable.getDict])
+            res = dict()
+            res['insTable'] = insTable.getList()
+            res['funcUTable'] = funcUTable.getList()
+            res['registerTable'] = registerTable.getDict()
+            return Response(res)
+        else:
+            print('还是放内存或数据库吧')
 
 
 # 获取周期指令
@@ -355,6 +369,10 @@ class GetCycleView(GenericAPIView):
             # print(funcUTable.getList)
             # print('registerTable:')
             # print([registerTable.getDict])
-            return Response(insTable.getList() + funcUTable.getList() + [registerTable.getDict()])
+            res = dict()
+            res['insTable'] = insTable.getList()
+            res['funcUTable'] = funcUTable.getList()
+            res['registerTable'] = registerTable.getDict()
+            return Response(res)
         else:
             print('还是放内存或数据库吧')
