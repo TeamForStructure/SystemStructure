@@ -321,7 +321,7 @@ def goto_cycle(end_cycle, instructions):
 # 获取指令
 class GetInstructionView(GenericAPIView):
 
-    def get(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         instructions = self.request.query_params.get('instructions')
         if instructions is None:
             return Response()
