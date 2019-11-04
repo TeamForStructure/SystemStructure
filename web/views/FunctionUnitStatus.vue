@@ -5,43 +5,53 @@
     style="width: 100%">
     <el-table-column
       prop="name"
-      label="Name">
+      label="Name"
+      width="80px">
     </el-table-column>
     <el-table-column
       prop="busy"
-      label="Busy">
+      label="Busy"
+      width="60px">
     </el-table-column>
     <el-table-column
       prop="Op"
-      label="op">
+      label="op"
+      width="60px">
     </el-table-column>
     <el-table-column
       prop="Fi"
-      label="Fi">
+      label="Fi"
+      width="60px">
     </el-table-column>
     <el-table-column
       prop="Fj"
-      label="Fj">
+      label="Fj"
+      width="70px">
     </el-table-column>
     <el-table-column
       prop="Fk"
-      label="Fk">
+      label="Fk"
+      width="70px">
     </el-table-column>
     <el-table-column
       prop="Qj"
-      label="Qj">
+      label="Qj"
+      width="70px">
     </el-table-column>
     <el-table-column
       prop="Qk"
-      label="Qk">
+      label="Qk"
+      width="70px">
     </el-table-column>
     <el-table-column
       prop="Rj"
-      label="Rj">
+      label="Rj"
+      width="70px">
     </el-table-column>
     <el-table-column
       prop="Rk"
-      label="Rk">
+      label="Rk"
+      width="70px">
     </el-table-column>
   </el-table>
 </template>
@@ -50,20 +60,13 @@
   export default {
     data() {
       return {
-        tableData: [{
-          name: "Integer",
-          busy:"Yes",
-          Op:"LD",
-          Fi:"F2",
-          Fj:"45+",
-          Fk:"R3",
-          Qj:"",
-          Qk:"",
-          Rj:"Yes",
-          Rk:"Yes"
-        }
-        ]
+        // tableData: []//this.$store.state.functionUnits
       }
-    }
+    },
+    computed: {
+      tableData(){
+        return this.$store.state.functionUnits
+      }
+    },
   }
 </script>

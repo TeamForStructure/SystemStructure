@@ -1,4 +1,5 @@
 <template>
+  
   <el-table
     :data="tableData"
     border
@@ -33,7 +34,7 @@
       label="Read operand">
     </el-table-column>
     <el-table-column
-      prop="ExeComplet"
+      prop="exeComplet"
       label="Execution Completion">
     </el-table-column>
     <el-table-column
@@ -41,25 +42,22 @@
       label="Write Result"
        width="120px">
     </el-table-column>
+    <div>{{tableData}}</div>
   </el-table>
+  
 </template>
 
 <script>
   export default {
     data() {
       return {
-        tableData: [{
-          instruction: "LD",
-          target:"F6",
-          j:"34+",
-          k:"R2",
-          issue:"",
-          readOperand:"",
-          exeComplet:"",
-          writeResult:""
-        }
-        ]
+        // tableData: []
       }
-    }
+    },
+    computed: {
+      tableData(){
+        return this.$store.state.instructions
+      }
+    },
   }
 </script>

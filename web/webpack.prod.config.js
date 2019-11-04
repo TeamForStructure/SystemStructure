@@ -16,5 +16,12 @@
 //         new ExtractTextPlugin
 //     ]
 // })
+var merge = require('webpack-merge');
 var config = require('./webpack.config.js')
-module.exports = config;
+module.exports = merge(config, {
+    output: {
+        path: path.resolve(__dirname, './dist'),
+        publicPath: './',
+        filename: 'bundle.js'
+    }
+})
