@@ -9,6 +9,8 @@ from rest_framework.response import Response
 
 import re
 
+from rest_framework.views import APIView
+
 instruction = []
 
 
@@ -319,10 +321,10 @@ def goto_cycle(end_cycle, instructions):
 
 
 # 获取指令
-class GetInstructionView(GenericAPIView):
+class GetInstructionView(APIView):
 
     def post(self, request, *args, **kwargs):
-        instructions = self.request.query_params.get('instructions')
+        instructions = self.request.data.get('instructions')
         if instructions is None:
             return Response()
         instructions += "\n"
