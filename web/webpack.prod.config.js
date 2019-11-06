@@ -18,6 +18,7 @@
 // })
 var merge = require('webpack-merge');
 var config = require('./webpack.config.js')
+var path = require('path')
 module.exports = merge(config, {
     output: {
         path: path.resolve(__dirname, './dist'),

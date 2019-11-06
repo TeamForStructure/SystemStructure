@@ -29,7 +29,7 @@
             <el-input v-model="input" placeholder="请输入周期数"></el-input>
         </div>
         <div >
-            <el-button type="success" plain @click="submitCycle">提交周期</el-button>
+            <el-button type="success" plain @click="sub">提交周期</el-button>
         </div>
         <div >
             <el-button type="primary" icon="el-icon-arrow-left" @click="last" >上一周期</el-button>
@@ -43,31 +43,29 @@ export default {
     data() {
         return {
             textarea: '',
-            cycle: 35,
-            input:'',
-            info: {}
+            cycle: 0,
+            input:null,
+            info: {
+                "instructions":""
+            }
         }
     },
     methods:{
         async submitInstruction(){
-            // var res = await this.$axios.get("http://127.0.0.1:8000/info/getinstructions?instructions=LD F6 34%2B R2\n"+
-            //         "LD F2 45%2B R3\n"+
-            //         "MULT F0 F2 F4\n"+
-            //         "SUBD F8 F6 F2\n"+
-            //         "DIVD F10 F0 F6\n"+
-            //         "ADDD F6 F8 F2")
-            var res = await this.$axios.get("http://127.0.0.1:8000/info/getinstructions?instructions="+this.textarea)
+            this.info.instructions = this.textarea
+            var res = await this.$axios.post("http://127.0.0.1:8000/info/getinstructions/",this.info)
             .catch(function(error){
                 console.log(error);
             });
+            console.log(res);
             var arr = []
             arr.push(res.data.registerTable)
-            this.$store.dispatch('commitInstructions',this.info.insTable);
-            this.$store.dispatch('commitFunctionUnits',this.info.funcUTable);
+            this.$store.dispatch('commitInstructions',res.data.insTable);
+            this.$store.dispatch('commitFunctionUnits',res.data.funcUTable);
             this.$store.dispatch('commitRegisters',arr);
         },
-        async submitCycle(){
-            var res = await this.$axios.get('http://127.0.0.1:8000/info/getcycle?cycle='+this.cycle)
+        async submitCycle(cycle){
+            var res = await this.$axios.get('http://127.0.0.1:8000/info/getcycle?cycle='+cycle)
             .catch(function(error){
                 console.log(error);
             });
@@ -78,13 +76,18 @@ export default {
             this.$store.dispatch('commitRegisters',arr);
             console.log(this.$store.state.registers);
         },
+        sub(){
+            this.cycle = Number(this.input);
+            this.submitCycle(this.cycle);
+            this.input = null;
+        },
         last(){
             this.cycle = this.cycle - 1;
-            this.submitCycle();
+            this.submitCycle(this.cycle);
         },
         next(){
             this.cycle = this.cycle + 1;
-            this.submitCycle();
+            this.submitCycle(this.cycle);
         }
     },
     mounted() {
