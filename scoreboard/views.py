@@ -1,11 +1,11 @@
-from django.shortcuts import render
-from rest_framework.generics import GenericAPIView
-from rest_framework.response import Response
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 # @Author: FrankYu
 # @Mail  : yubo1120@bupt.com
-# @File  : scoreboard.py
+# @File  : views.py
+from django.shortcuts import render
+from rest_framework.generics import GenericAPIView
+from rest_framework.response import Response
 
 import re
 
@@ -40,7 +40,7 @@ class InstructionStatusTable(object):
             "exeComplet": "",
             "writeResult": ""
         }
-        # issue,readOperand,exeComplet,writeResult均初始化为0
+        # issue,readOperand,exeComplete,writeResult均初始化为空
         self.instructionList.append(instructionItem)
 
     def getList(self):
